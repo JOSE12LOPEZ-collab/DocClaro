@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocClaro - Traductor de Recibos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Cabecera -->
+        <header>
+            <h1>DocClaro</h1>
+            <p>Simplifica tus recibos al instante</p>
+        </header>
+
+        <!-- Sección de Carga / Cámara -->
+        <main>
+            <div class="upload-card" id="drop-zone">
+                <div class="icon">📄</div>
+                <h2>Sube o fotografía tu recibo</h2>
+                <p>Luz, agua, internet o gas</p>
+                
+                <!-- Botones de Acción -->
+                <input type="file" id="file-input" accept="image/*,application/pdf" hidden>
+                <button class="btn-primary" onclick="document.getElementById('file-input').click()">📁 Seleccionar Archivo</button>
+                <button class="btn-secondary" id="camera-btn">📸 Tomar Foto</button>
+            </div>
+
+            <!-- Área de Resultados (Oculta al inicio) -->
+            <div class="result-card hidden" id="result-container">
+                <h3>Traducción del Recibo</h3>
+                <div id="ai-response">
+                    <!-- Aquí aparecerá el análisis limpio -->
+                </div>
+                <button class="btn-secondary" onclick="resetApp()">Analizar otro recibo</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
