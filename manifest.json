@@ -1,17 +1,15 @@
 {
   "name": "DocClaro",
   "short_name": "DocClaro",
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1e3a8a",
-  "description": "Simplifica tus recibos al instante",
   "icons": [
     {
-      "src": "./icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ]
 }

@@ -4,7 +4,9 @@ const resultContainer = document.getElementById('result-container');
 const aiResponse = document.getElementById('ai-response');
 
 // Clave de API de Gemini (puedes colocar tu clave de Google AI Studio aquí)
-const API_KEY = "AQ.Ab8RN6KbJoXkapZsqGkVMP0q6KX_0jRZ-S0UTtTFuphP5ziNyg";
+const API_KEY = localStorage.getItem("GEMINI_API_KEY") || prompt("Ingresa tu clave de API de Gemini:");
+localStorage.setItem("GEMINI_API_KEY", API_KEY);
+
 fileInput.addEventListener('change', async (event) => {
     const file = event.target.files[0];
     if (file) {
