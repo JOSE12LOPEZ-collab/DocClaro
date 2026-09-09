@@ -3,7 +3,7 @@ const dropZone = document.getElementById('drop-zone');
 const resultContainer = document.getElementById('result-container');
 const aiResponse = document.getElementById('ai-response');
 
-// Clave de API de Gemini (puedes colocar tu clave de Google AI Studio aquí)
+// Clave de API de Gemini actualizada y activa
 const API_KEY = "AQ.Ab8RN6I4IvkKT6rkk51fI4LRIG7cy2fd5dVbPlnYCLYQRnGIfwESTA";
 
 fileInput.addEventListener('change', async (event) => {
@@ -14,12 +14,8 @@ fileInput.addEventListener('change', async (event) => {
         aiResponse.innerHTML = `<p>⏳ Leyendo tu recibo con inteligencia artificial...</p>`;
 
         try {
-            // Convertimos la imagen cargada a formato base64 para enviarla a la API
             const base64Data = await convertFileToBase64(file);
-            
-            // Llamada real a la API de Gemini 2.5 Flash
             const analysisResult = await analyzeReceiptWithGemini(base64Data, file.type);
-            
             aiResponse.innerHTML = analysisResult;
         } catch (error) {
             console.error(error);
@@ -28,7 +24,6 @@ fileInput.addEventListener('change', async (event) => {
     }
 });
 
-// Función para convertir imagen a base64
 function convertFileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -38,7 +33,6 @@ function convertFileToBase64(file) {
     });
 }
 
-// Función que se conecta con la API de Google Gemini
 async function analyzeReceiptWithGemini(base64Image, mimeType) {
     const promptText = `Actúa como un asistente amable, experto y directo. Analiza la imagen de este recibo de servicio público. Ignora los códigos de barras y la información irrelevante. Devuelve la información exclusivamente en este formato sencillo, usando viñetas claras y sin rodeos ni lenguaje técnico:
 
@@ -72,15 +66,8 @@ async function analyzeReceiptWithGemini(base64Image, mimeType) {
     
     if (data.candidates && data.candidates[0].content) {
         let text = data.candidates[0].content.parts[0].text;
-        // Convertimos saltos de línea a etiquetas <br> para que se vea ordenado en HTML
         return text.replace(/\n/g, '<br>');
     } else {
         throw new Error("No se pudo obtener una respuesta válida de la IA.");
     }
-}
-
-function resetApp() {
-    fileInput.value = '';
-    resultContainer.classList.add('hidden');
-    dropZone.classList.remove('hidden');
 }
