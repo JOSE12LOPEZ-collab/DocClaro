@@ -3,7 +3,7 @@ const dropZone = document.getElementById('drop-zone');
 const resultContainer = document.getElementById('result-container');
 const aiResponse = document.getElementById('ai-response');
 
-// Clave de API de Gemini actualizada y activa
+// Clave de API de Gemini
 const API_KEY = "AQ.Ab8RN6I4IvkKT6rkk51fI4LRIG7cy2fd5dVbPlnYCLYQRnGIfwESTA";
 
 fileInput.addEventListener('change', async (event) => {
@@ -19,7 +19,7 @@ fileInput.addEventListener('change', async (event) => {
             aiResponse.innerHTML = analysisResult;
         } catch (error) {
             console.error(error);
-            aiResponse.innerHTML = `<p style="color: red;">Hubo un error al procesar el recibo. Por favor, verifica tu conexión o clave de API.</p>`;
+            aiResponse.innerHTML = `<p style="color: red;">Hubo un error al procesar el recibo. Por favor, verifica que la imagen sea clara o revisa tu clave de API.</p>`;
         }
     }
 });
@@ -64,9 +64,12 @@ async function analyzeReceiptWithGemini(base64Image, mimeType) {
 
     const data = await response.json();
     
-    if (data.candidates && data.candidates[0].content) {
+    // Validación segura de la respuesta de la IA
+    if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts) {
         let text = data.candidates[0].content.parts[0].text;
         return text.replace(/\n/g, '<br>');
+    } else if (data.error) {
+        throw new Error(data.error.message || "Error en la API de Gemini");
     } else {
         throw new Error("No se pudo obtener una respuesta válida de la IA.");
     }
